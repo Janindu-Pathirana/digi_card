@@ -3,7 +3,6 @@ import 'package:digi_card/QrCodeScreen.dart';
 import 'package:flutter/material.dart';
 
 import 'Buttons.dart';
-import 'DataCRUD.dart';
 import 'DataContainers.dart';
 import 'SettingsPage.dart';
 
@@ -15,8 +14,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-
   List<List<String>> getDataList(String data) {
     Map<String, String> mobile = user[data];
 
@@ -42,6 +39,13 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("images/logo.png"))),
+                ),
                 Text(
                   "DigiCard",
                   style: TextStyle(color: Colors.black, fontSize: 20),

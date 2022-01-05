@@ -14,7 +14,7 @@ class LoaddingScreen extends StatefulWidget {
 class _LoaddingScreenState extends State<LoaddingScreen> {
   Future<void> readData() async {
     await DataCRUD.readData();
-    Future.delayed(Duration(seconds: 5));
+    await Future.delayed(Duration(seconds: 2));
     Navigator.popAndPushNamed(context, HomePage.id);
   }
 

@@ -42,42 +42,50 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
       color: Colors.white,
       child: SafeArea(
         child: Container(
+          padding: EdgeInsets.symmetric(horizontal: mainPadding),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "GigiCard",
-                style: TextStyle(color: Colors.black, fontSize: 20),
-              ),
-              Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    color: Colors.black12,
-                    borderRadius: BorderRadius.circular(20)),
-                child: QrImage(
-                  data: getVCF(),
-                  version: QrVersions.auto,
-                  foregroundColor: Colors.black,
-                  size: 200.0,
-                ),
-              ),
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Container(
-                    width: 150,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.black,
+                      )),
+                  Text(
+                    "GigiCard",
+                    style: TextStyle(color: Colors.black, fontSize: 20),
+                  ),
+                  Container(
+                    width: 50,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(15),
+                        image: DecorationImage(
+                            image: AssetImage("images/logo.png"))),
+                  ),
+                ],
+              ),
+              Expanded(
+                child: Container(
+                  child: Center(
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          color: Colors.black12,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: QrImage(
+                        data: getVCF(),
+                        version: QrVersions.auto,
+                        foregroundColor: Colors.black,
+                      ),
                     ),
-                    child: Center(
-                        child: Text(
-                      "Back",
-                      style: TextStyle(color: Colors.black, fontSize: 15),
-                    )),
-                  ))
+                  ),
+                ),
+              ),
             ],
           ),
         ),
