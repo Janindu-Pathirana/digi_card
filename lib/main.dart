@@ -1,4 +1,5 @@
 import 'package:digi_card/HomePage.dart';
+import 'package:digi_card/LoardingScreen.dart';
 import 'package:digi_card/QrCodeScreen.dart';
 import 'package:digi_card/SettingsPage.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +15,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.dark().copyWith(backgroundColor: Colors.white),
-      initialRoute: HomePage.id,
+      initialRoute: LoaddingScreen.id,
       routes: {
+        LoaddingScreen.id: (context) => LoaddingScreen(),
         HomePage.id: (context) => HomePage(),
         QrCodeScreen.id: (context) => QrCodeScreen(),
         SettingsPage.id: (context) => SettingsPage(),

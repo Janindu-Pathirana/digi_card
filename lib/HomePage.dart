@@ -1,9 +1,9 @@
 import 'package:digi_card/Data.dart';
-import 'package:digi_card/DataCRUD.dart';
 import 'package:digi_card/QrCodeScreen.dart';
 import 'package:flutter/material.dart';
 
 import 'Buttons.dart';
+import 'DataCRUD.dart';
 import 'DataContainers.dart';
 import 'SettingsPage.dart';
 
@@ -15,11 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  @override
-  initState() {
-    super.initState();
-    DataCRUD.readData();
-  }
+
 
   List<List<String>> getDataList(String data) {
     Map<String, String> mobile = user[data];

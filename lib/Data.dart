@@ -18,12 +18,6 @@ Map<String, dynamic> user = {
   "DPName": "Janindu",
   "First Name": "Janindu",
   "Second Name": "Pathirana",
-  "Mobile": {
-    "Home": "123455",
-    "Work": "1234456644",
-  },
-  "Email": {
-    "Home": "hAJshkdhjka@gamil",
-    "Other": "jkhjakshkjdhkjas@gamil",
-  },
+  "Mobile": {"mobile", "mobile"},
+  "Email": {"email", "email"},
 };
