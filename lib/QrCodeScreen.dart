@@ -38,9 +38,9 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: SafeArea(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: mainPadding),
           child: Column(

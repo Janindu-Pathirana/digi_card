@@ -30,122 +30,124 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(left: mainPadding, right: mainPadding),
-      color: Colors.white,
-      child: SafeArea(
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("images/logo.png"))),
-                ),
-                Text(
-                  "DigiCard",
-                  style: TextStyle(color: Colors.black, fontSize: 20),
-                ),
-                //menue button
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, SettingsPage.id);
-                  },
-                  child: Icon(
-                    Icons.settings,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
-            //dp and name
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 20),
-              child: Column(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Container(
+        padding: EdgeInsets.only(left: mainPadding, right: mainPadding),
+        child: SafeArea(
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    width: 150,
-                    height: 150,
+                    width: 50,
+                    height: 50,
                     decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
+                        image: DecorationImage(
+                            image: AssetImage("images/logo.png"))),
                   ),
-                  //name
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    child: Text(
-                      "${user["DPName"]}",
-                      style: TextStyle(fontSize: 20, color: Colors.black),
-                    ),
+                  Text(
+                    "DigiCard",
+                    style: TextStyle(color: Colors.black, fontSize: 20),
                   ),
-
-                  //button
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ImageButton(
-                          onTap: () {
-                            Navigator.pushNamed(context, QrCodeScreen.id);
-                          },
-                          image: "images/QR.png",
-                          name: "QR",
-                        ),
-                        SizedBox(
-                          width: 40,
-                        ),
-                        ImageButton(
-                          image: "images/NFC.png",
-                          name: "NFC",
-                        )
-                      ],
-                    ),
-                  ),
-
-                  //divider
-                  SizedBox(
-                    height: 10,
-                    width: 300,
-                    child: Divider(
+                  //menue button
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, SettingsPage.id);
+                    },
+                    child: Icon(
+                      Icons.edit,
                       color: Colors.black,
                     ),
-                  )
+                  ),
                 ],
               ),
-            ),
-            //data
-//data
-            Flexible(
-              child: Container(
-                padding: EdgeInsets.only(top: 5),
-                child: ListView(
+              //dp and name
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 20),
+                child: Column(
                   children: [
-                    DataContainer(
-                      title: "Name",
-                      dataList: [
-                        ["First Name", "${user["First Name"]}"],
-                        ["Second Name", "${user["Second Name"]}"],
-                      ],
+                    Container(
+                      width: 150,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                     ),
-                    DataContainer(
-                      title: "Mobile",
-                      dataList: getDataList("Mobile"),
+                    //name
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      child: Text(
+                        "${user["DPName"]}",
+                        style: TextStyle(fontSize: 20, color: Colors.black),
+                      ),
                     ),
-                    DataContainer(
-                      title: "Email",
-                      dataList: getDataList("Email"),
+
+                    //button
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ImageButton(
+                            onTap: () {
+                              Navigator.pushNamed(context, QrCodeScreen.id);
+                            },
+                            image: "images/QR.png",
+                            name: "QR",
+                          ),
+                          SizedBox(
+                            width: 40,
+                          ),
+                          ImageButton(
+                            image: "images/NFC.png",
+                            name: "NFC",
+                          )
+                        ],
+                      ),
+                    ),
+
+                    //divider
+                    SizedBox(
+                      height: 10,
+                      width: 300,
+                      child: Divider(
+                        color: Colors.black,
+                      ),
                     )
                   ],
                 ),
               ),
-            ),
-          ],
+              //data
+//data
+              Flexible(
+                child: Container(
+                  padding: EdgeInsets.only(top: 5),
+                  child: ListView(
+                    children: [
+                      DataContainer(
+                        title: "Name",
+                        dataList: [
+                          ["First Name", "${user["First Name"]}"],
+                          ["Second Name", "${user["Second Name"]}"],
+                        ],
+                      ),
+                      DataContainer(
+                        title: "Mobile",
+                        dataList: getDataList("Mobile"),
+                      ),
+                      DataContainer(
+                        title: "Email",
+                        dataList: getDataList("Email"),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

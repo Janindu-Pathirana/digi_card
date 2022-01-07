@@ -1,6 +1,9 @@
+import 'package:digi_card/DataCRUD.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'Data.dart';
+import 'HomePage.dart';
 
 class SettingsPage extends StatefulWidget {
   static String id = "SettingsPage";
@@ -10,50 +13,298 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  String dpName = "";
+  String fName = "";
+  String sName = "";
+  Map<String, String> mobileNoEditingMap = {};
+  Map<String, String> emailEditingMap = {};
+
+  List<Widget> getEmails() {
+    List<Widget> list = [
+      Text(
+        "Emails",
+        style: TextStyle(fontSize: 18),
+      ),
+      SizedBox(height: 10),
+    ];
+
+    Map<String, String> mobile = user["Email"];
+
+    mobile.forEach((key, value) {
+      list.add(
+        CustonTextFields(
+          inputType: TextInputType.emailAddress,
+          lable: "$key",
+          hintText: "Enter $key Email",
+          initStage: "$value",
+          onChanged: (value) {
+            emailEditingMap[key] = value;
+          },
+        ),
+      );
+
+      list.add(
+        SizedBox(height: 10),
+      );
+    });
+
+    return list;
+  }
+
+  List<Widget> getMobileNumbers() {
+    List<Widget> list = [
+      Text(
+        "Mobile Numbers",
+        style: TextStyle(fontSize: 18),
+      ),
+      SizedBox(height: 10),
+    ];
+
+    Map<String, String> mobile = user["Mobile"];
+
+    mobile.forEach((key, value) {
+      list.add(
+        CustonTextFields(
+          inputType: TextInputType.number,
+          lable: "$key",
+          hintText: "Enter $key No",
+          initStage: "$value",
+          onChanged: (value) {
+            mobileNoEditingMap[key] = value;
+          },
+        ),
+      );
+
+      list.add(
+        SizedBox(height: 10),
+      );
+    });
+
+    return list;
+  }
+
+  void save() {
+    user["Mobile"] = mobileNoEditingMap;
+    user["Email"] = emailEditingMap;
+
+    if (dpName.isNotEmpty) user["DPName"] = dpName;
+    if (fName.isNotEmpty) user["First Name"] = fName;
+    print(user["First Name"]);
+    if (sName.isNotEmpty) user["Second Name"] = sName;
+
+    DataCRUD.storeData();
+
+    Navigator.popAndPushNamed(context, HomePage.id);
+  }
+
+  @override
+  void initState() {
+    Map<String, String> mobile = user["Mobile"];
+
+    mobileNoEditingMap = mobile;
+
+    Map<String, String> email = user["Email"];
+
+    emailEditingMap = email;
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: mainPadding),
-      color: Colors.white,
-      child: SafeArea(
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      color: Colors.black,
-                    )),
-                Container(
-                  child: Text(
-                    "DigiCard",
-                    style: TextStyle(color: Colors.black, fontSize: 20),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: mainPadding),
+        child: SafeArea(
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.black,
+                      )),
+                  Container(
+                    child: Text(
+                      "Settings",
+                      style: TextStyle(color: Colors.black, fontSize: 20),
+                    ),
+                  ),
+                  Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage("images/logo.png"))),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Expanded(
+                child: Container(
+                  child: Stack(
+                    children: [
+                      ListView(
+                        children: [
+                          Container(
+                            child: Column(
+                              children: [
+                                Text(
+                                  "Name",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                SizedBox(height: 10),
+                                CustonTextFields(
+                                  lable: "Display Name",
+                                  hintText: "Enter your Display Name",
+                                  initStage: user["DPName"],
+                                  onChanged: (value) {
+                                    dpName = value;
+                                  },
+                                ),
+                                SizedBox(height: 10),
+                                CustonTextFields(
+                                  lable: "First Name",
+                                  hintText: "Enter your First Name",
+                                  initStage: user["First Name"],
+                                  onChanged: (value) {
+                                    fName = value;
+                                  },
+                                ),
+                                SizedBox(height: 10),
+                                CustonTextFields(
+                                  lable: "Second Name",
+                                  hintText: "Enter your Second Name",
+                                  initStage: user["Second Name"],
+                                  onChanged: (value) {
+                                    sName = value;
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 50,
+                            child: Divider(
+                              color: Colors.black,
+                            ),
+                          ),
+                          Container(
+                            child: Column(
+                              children: getMobileNumbers(),
+                            ),
+                          ),
+                          Container(
+                            child: Column(
+                              children: getEmails(),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 70,
+                          ),
+                        ],
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 20),
+                          child: TextButton(
+                              onPressed: () {
+                                save();
+                              },
+                              child: Container(
+                                width: 100,
+                                height: 45,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    color: Colors.lightBlueAccent),
+                                child: Center(
+                                  child: Text(
+                                    "Save",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              )),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("images/logo.png"))),
-                ),
-              ],
-            ),
-            Expanded(
-              child: Container(
-                child: ListView(
-                  children: [],
-                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
+  }
+}
+
+class CustonTextFields extends StatefulWidget {
+  final String? initStage;
+  final String lable;
+  final String hintText;
+  TextInputType? inputType = TextInputType.name;
+  final Function? onChanged;
+
+  CustonTextFields(
+      {Key? key,
+      this.initStage,
+      required this.lable,
+      required this.hintText,
+      inputType,
+      this.onChanged})
+      : super(key: key);
+
+  @override
+  _CustonTextFieldsState createState() => _CustonTextFieldsState();
+}
+
+class _CustonTextFieldsState extends State<CustonTextFields> {
+  late var controller;
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  initState() {
+    if (widget.initStage == null) {
+      controller = TextEditingController();
+    } else {
+      controller = TextEditingController(text: "${widget.initStage}");
+    }
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: 55,
+        child: TextField(
+          controller: controller,
+          onChanged: (value) {
+            widget.onChanged!(value);
+          },
+          keyboardType: TextInputType.name,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            contentPadding: EdgeInsets.symmetric(horizontal: 10),
+            label: Text("${widget.lable}"),
+            hintText: "${widget.hintText}",
+            hintStyle: TextStyle(color: Colors.black26),
+          ),
+        ));
   }
 }

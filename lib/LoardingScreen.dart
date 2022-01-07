@@ -1,8 +1,8 @@
-import 'package:digi_card/HomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
 import 'DataCRUD.dart';
+import 'HomePage.dart';
 
 class LoaddingScreen extends StatefulWidget {
   static String id = "LoaddingScreen";
@@ -21,10 +21,11 @@ class _LoaddingScreenState extends State<LoaddingScreen> {
   @override
   Widget build(BuildContext context) {
     readData();
-    return Container(
-      color: Colors.white,
-      child: SafeArea(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
           child: Container(
+        width: double.maxFinite,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
