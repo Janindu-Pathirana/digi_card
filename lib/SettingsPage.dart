@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'Data.dart';
 import 'HomePage.dart';
 
+// todo: add Mr. Ms tag to chage, check CSV files for the options
+
 class SettingsPage extends StatefulWidget {
   static String id = "SettingsPage";
 

@@ -13,6 +13,9 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
+// todo: create NFC part
+// todo: Need Startup screens
+
 class _HomePageState extends State<HomePage> {
   List<List<String>> getDataList(String data) {
     Map<String, String> mobile = user[data];
