@@ -11,7 +11,14 @@ class DataCRUD {
   static final String filePath = 'jsonData/userData.json';
 
   static Future<void> readData() async {
-    String jsonString = await rootBundle.loadString(filePath);
+    String jsonString;
+    try {
+      final path = await _localPath;
+      final File file = File('${path}/userData.json');
+      jsonString = await file.readAsString();
+    } catch (e) {
+      jsonString = await rootBundle.loadString(filePath);
+    }
     _data = await json.decode(jsonString);
     await _createMap();
   }
@@ -70,11 +77,9 @@ class DataCRUD {
       }
     });
 
-    data += "],";
+    data += "]";
 
     data += "}";
-
-    // print(data);
 
     writeFile(data);
   }
@@ -89,7 +94,6 @@ class DataCRUD {
     final path = await _localPath;
     print(path);
     return File('$path/userData.json');
-    // return File('../$filePath');
   }
 
   static Future<File> writeFile(String data) async {
