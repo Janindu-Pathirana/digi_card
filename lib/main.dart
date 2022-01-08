@@ -1,3 +1,4 @@
+import 'package:digi_card/BeginSetupPages/FirstPage.dart';
 import 'package:digi_card/HomePage.dart';
 import 'package:digi_card/LoardingScreen.dart';
 import 'package:digi_card/QrCodeScreen.dart';
@@ -14,8 +15,9 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: LoaddingScreen.id,
+      initialRoute: FirstPage.id,
       routes: {
+        FirstPage.id: (context) => FirstPage(),
         LoaddingScreen.id: (context) => LoaddingScreen(),
         HomePage.id: (context) => HomePage(),
         QrCodeScreen.id: (context) => QrCodeScreen(),

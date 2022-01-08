@@ -10,6 +10,16 @@ class FirstPage extends StatefulWidget {
 class _FirstPageState extends State<FirstPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+          width: double.maxFinite,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [],
+          ),
+        ),
+      ),
+    );
   }
 }

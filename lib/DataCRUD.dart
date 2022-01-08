@@ -101,4 +101,14 @@ class DataCRUD {
 
     return file.writeAsString(data);
   }
+
+  static Future<bool> checkAavailability() async {
+    try {
+      final path = await _localPath;
+      File('${path}/userData.json');
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 }
