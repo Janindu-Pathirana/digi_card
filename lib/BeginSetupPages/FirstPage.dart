@@ -1,4 +1,8 @@
+import 'package:digi_card/BeginSetupPages/SecondPage.dart';
 import 'package:flutter/material.dart';
+
+import '../Assets.dart';
+import '../Buttons.dart';
 
 class FirstPage extends StatefulWidget {
   static String id = "FirstPage";
@@ -16,7 +20,25 @@ class _FirstPageState extends State<FirstPage> {
           width: double.maxFinite,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [],
+            children: [
+              Logo(),
+              SizedBox(
+                height: 60,
+              ),
+              Text(
+                "Welcome",
+                style: TextStyle(color: Colors.black, fontSize: 25),
+              ),
+              SizedBox(
+                height: 100,
+              ),
+              CustomButton(
+                onTap: () {
+                  Navigator.popAndPushNamed(context, SecondPage.id);
+                },
+                text: "Start",
+              ),
+            ],
           ),
         ),
       ),

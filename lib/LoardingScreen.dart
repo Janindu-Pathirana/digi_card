@@ -1,3 +1,5 @@
+import 'package:digi_card/Assets.dart';
+import 'package:digi_card/BeginSetupPages/FirstPage.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
@@ -13,9 +15,14 @@ class LoaddingScreen extends StatefulWidget {
 
 class _LoaddingScreenState extends State<LoaddingScreen> {
   Future<void> readData() async {
-    await DataCRUD.readData();
-    await Future.delayed(Duration(seconds: 2));
-    Navigator.popAndPushNamed(context, HomePage.id);
+    if (await DataCRUD.checkAavailability()) {
+      await DataCRUD.readData();
+      Navigator.popAndPushNamed(context, HomePage.id);
+    } else {
+      Navigator.popAndPushNamed(context, FirstPage.id);
+    }
+
+    await Future.delayed(Duration(seconds: 1));
   }
 
   @override
@@ -40,39 +47,10 @@ class _LoaddingScreenState extends State<LoaddingScreen> {
                 indicatorType: Indicator.ballRotateChase,
                 colors: [Colors.lightBlueAccent],
               ),
-            )
+            ),
           ],
         ),
       )),
-    );
-  }
-}
-
-class Logo extends StatelessWidget {
-  const Logo({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          width: 150,
-          height: 150,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("images/logo.png"))),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 10),
-          child: Text(
-            "DigiCard",
-            style: TextStyle(color: Colors.black, fontSize: 25),
-          ),
-        ),
-      ],
     );
   }
 }

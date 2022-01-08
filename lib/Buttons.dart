@@ -38,3 +38,45 @@ class ImageButton extends StatelessWidget {
     );
   }
 }
+
+class CustomButton extends StatelessWidget {
+  final Function onTap;
+  final String text;
+  final Color backGroundColor;
+  final Color textColor;
+  final double fotSize;
+  final double width;
+  final double height;
+
+  CustomButton({
+    Key? key,
+    required this.onTap,
+    required this.text,
+    this.backGroundColor = Colors.lightBlueAccent,
+    this.textColor = Colors.white,
+    this.fotSize = 18,
+    this.height = 50,
+    this.width = 150,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: () {
+        onTap();
+      },
+      child: Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+            color: backGroundColor, borderRadius: BorderRadius.circular(20)),
+        child: Center(
+          child: Text(
+            "$text",
+            style: TextStyle(color: textColor, fontSize: fotSize),
+          ),
+        ),
+      ),
+    );
+  }
+}

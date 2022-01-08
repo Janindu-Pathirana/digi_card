@@ -15,9 +15,9 @@ List<BoxShadow> shadow = [
 ];
 
 Map<String, dynamic> user = {
-  "DPName": "Janindu",
-  "First Name": "Janindu",
-  "Second Name": "Pathirana",
-  "Mobile": {"mobile", "mobile"},
-  "Email": {"email", "email"},
+  "DPName": "-",
+  "First Name": "-",
+  "Second Name": "-",
+  "Mobile": {"Home": "-", "Mobile": "-"},
+  "Email": {"Home": "-", "Other": "-"},
 };
