@@ -19,6 +19,7 @@ class _SecondPageState extends State<SecondPage> {
   String error = "";
   String fName = "";
   String sName = "";
+  String pr = "";
 
   void check() {
     if (fName.isEmpty || sName.isEmpty) {
@@ -32,6 +33,7 @@ class _SecondPageState extends State<SecondPage> {
 
       user["First Name"] = fName;
       user["Second Name"] = sName;
+      user["Pr"] = pr;
       user["DPName"] = "$fName $sName";
 
       DataCRUD.storeData();
@@ -56,6 +58,16 @@ class _SecondPageState extends State<SecondPage> {
                   height: 60,
                 ),
                 CustonTextFields(
+                  lable: "Prefix",
+                  hintText: "Enter Prefix",
+                  onChanged: (val) {
+                    pr = val;
+                  },
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                CustonTextFields(
                   lable: "First Name",
                   hintText: "Enter First Name",
                   onChanged: (val) {
@@ -66,7 +78,7 @@ class _SecondPageState extends State<SecondPage> {
                   height: 10,
                 ),
                 CustonTextFields(
-                    lable: "First Name",
+                    lable: "Second Name",
                     hintText: "Enter Second Name",
                     onChanged: (val) {
                       sName = val;

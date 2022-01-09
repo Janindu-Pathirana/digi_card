@@ -1,7 +1,6 @@
 import 'dart:convert';
 import "dart:io";
 
-import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'Data.dart';
@@ -16,17 +15,18 @@ class DataCRUD {
       final path = await _localPath;
       final File file = File('${path}/userData.json');
       jsonString = await file.readAsString();
+      _data = await json.decode(jsonString);
+      await _createMap();
     } catch (e) {
-      jsonString = await rootBundle.loadString(filePath);
+      print("Error cant find file crud");
     }
-    _data = await json.decode(jsonString);
-    await _createMap();
   }
 
   static Future<void> _createMap() async {
     user["DPName"] = _data["DPName"];
     user["First Name"] = _data["First Name"];
     user["Second Name"] = _data["Second Name"];
+    user["Pr"] = _data["Pr"];
 
     List mobile = _data["Mobile"];
     List email = _data["Email"];
@@ -49,7 +49,7 @@ class DataCRUD {
   static storeData() {
     String data = "{";
 
-    data += """ "DPName": "${user["DPName"]}",
+    data += """ "Pr":"${user["Pr"]}", "DPName": "${user["DPName"]}",
   "First Name": "${user["First Name"]}",
   "Second Name": "${user["Second Name"]}",""";
 
@@ -105,7 +105,8 @@ class DataCRUD {
   static Future<bool> checkAavailability() async {
     try {
       final path = await _localPath;
-      await File('${path}/userData.json');
+      await File('${path}/userData.json').readAsString();
+
       return true;
     } catch (e) {
       return false;

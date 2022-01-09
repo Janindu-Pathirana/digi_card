@@ -83,7 +83,9 @@ class _HomePageState extends State<HomePage> {
                     Container(
                       padding: EdgeInsets.symmetric(vertical: 10),
                       child: Text(
-                        "${user["DPName"]}",
+                        user["Pr"] == ""
+                            ? "${user["DPName"]}"
+                            : "${user["Pr"]}.${user["DPName"]}",
                         style: TextStyle(fontSize: 20, color: Colors.black),
                       ),
                     ),

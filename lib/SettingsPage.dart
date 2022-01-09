@@ -19,6 +19,7 @@ class _SettingsPageState extends State<SettingsPage> {
   String dpName = "";
   String fName = "";
   String sName = "";
+  String pr = "";
   Map<String, String> mobileNoEditingMap = {};
   Map<String, String> emailEditingMap = {};
 
@@ -94,6 +95,7 @@ class _SettingsPageState extends State<SettingsPage> {
     if (fName.isNotEmpty) user["First Name"] = fName;
     print(user["First Name"]);
     if (sName.isNotEmpty) user["Second Name"] = sName;
+    user["Pr"] = pr.replaceAll(".", "");
 
     DataCRUD.storeData();
 
@@ -163,6 +165,15 @@ class _SettingsPageState extends State<SettingsPage> {
                                 Text(
                                   "Name",
                                   style: TextStyle(fontSize: 18),
+                                ),
+                                SizedBox(height: 10),
+                                CustonTextFields(
+                                  lable: "Prefix",
+                                  hintText: "Enter your Prefix",
+                                  initStage: user["Pr"],
+                                  onChanged: (value) {
+                                    pr = value;
+                                  },
                                 ),
                                 SizedBox(height: 10),
                                 CustonTextFields(

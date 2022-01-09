@@ -15,7 +15,10 @@ class LoaddingScreen extends StatefulWidget {
 
 class _LoaddingScreenState extends State<LoaddingScreen> {
   Future<void> readData() async {
-    if (await DataCRUD.checkAavailability()) {
+    bool available = await DataCRUD.checkAavailability();
+
+    print("Available is $available");
+    if (available) {
       await DataCRUD.readData();
       Navigator.popAndPushNamed(context, HomePage.id);
     } else {
