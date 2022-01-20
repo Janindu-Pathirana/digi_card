@@ -98,6 +98,7 @@ class _SettingsPageState extends State<SettingsPage> {
       mobile.forEach((key, value) {
         list.add(
           CustonTextFields(
+            icon: Icon(Icons.phone),
             inputType: TextInputType.number,
             lable: "$key",
             hintText: "Enter $key No",
