@@ -1,12 +1,16 @@
 import 'package:digi_card/DataCRUD.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 
+import 'Buttons.dart';
 import 'CustomTextField.dart';
 import 'Data.dart';
 import 'HomePage.dart';
 
-// todo: add Mr. Ms tag to chage, check CSV files for the options
+// todo: check CSV files for the options
+
+enum Field { Mobile, Email }
 
 class SettingsPage extends StatefulWidget {
   static String id = "SettingsPage";
@@ -32,25 +36,49 @@ class _SettingsPageState extends State<SettingsPage> {
       SizedBox(height: 10),
     ];
 
-    Map<String, String> mobile = user["Email"];
+    Map<String, String> email = userData.Email;
 
-    mobile.forEach((key, value) {
-      list.add(
-        CustonTextFields(
-          inputType: TextInputType.emailAddress,
-          lable: "$key",
-          hintText: "Enter $key Email",
-          initStage: "$value",
-          onChanged: (value) {
-            emailEditingMap[key] = value;
+    if (email.isNotEmpty) {
+      email.forEach((key, value) {
+        list.add(
+          CustonTextFields(
+            inputType: TextInputType.emailAddress,
+            lable: "$key",
+            hintText: "Enter $key Email",
+            initStage: "$value",
+            onChanged: (value) {
+              emailEditingMap[key] = value;
+            },
+          ),
+        );
+
+        list.add(
+          SizedBox(height: 10),
+        );
+      });
+    }
+    list.add(CustomAddButton(
+      onPress: () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            String secondFieldVal = "";
+            String firstFieldVal = "";
+            String errorText = "";
+
+            return CustomPopUpBox(
+              field: Field.Email,
+              title: "Email Address",
+              firstFieldHint: "Add Email Type",
+              firstFirldLable: "Email Type",
+              secondFieldLable: "Email Address",
+              secondFirldHint: "Add Email Address",
+              secondFieldType: TextInputType.emailAddress,
+            );
           },
-        ),
-      );
-
-      list.add(
-        SizedBox(height: 10),
-      );
-    });
+        );
+      },
+    ));
 
     return list;
   }
@@ -64,38 +92,57 @@ class _SettingsPageState extends State<SettingsPage> {
       SizedBox(height: 10),
     ];
 
-    Map<String, String> mobile = user["Mobile"];
+    Map<String, String> mobile = userData.Mobile;
 
-    mobile.forEach((key, value) {
-      list.add(
-        CustonTextFields(
-          inputType: TextInputType.number,
-          lable: "$key",
-          hintText: "Enter $key No",
-          initStage: "$value",
-          onChanged: (value) {
-            mobileNoEditingMap[key] = value;
-          },
-        ),
-      );
+    if (mobile.isNotEmpty) {
+      mobile.forEach((key, value) {
+        list.add(
+          CustonTextFields(
+            inputType: TextInputType.number,
+            lable: "$key",
+            hintText: "Enter $key No",
+            initStage: "$value",
+            onChanged: (value) {
+              mobileNoEditingMap[key] = value;
+            },
+          ),
+        );
 
-      list.add(
-        SizedBox(height: 10),
+        list.add(
+          SizedBox(height: 10),
+        );
+      });
+    }
+
+    list.add(CustomAddButton(onPress: () {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomPopUpBox(
+            field: Field.Mobile,
+            title: "Mobile Number",
+            firstFieldHint: "Add Mobile Type",
+            firstFirldLable: "Mobile Type",
+            secondFieldLable: "Number",
+            secondFirldHint: "Add Mobile Number",
+            secondFieldType: TextInputType.phone,
+          );
+        },
       );
-    });
+    }));
 
     return list;
   }
 
   void save() {
-    user["Mobile"] = mobileNoEditingMap;
-    user["Email"] = emailEditingMap;
+    userData..Mobile = mobileNoEditingMap;
+    userData..Email = emailEditingMap;
 
-    if (dpName.isNotEmpty) user["DPName"] = dpName;
-    if (fName.isNotEmpty) user["First Name"] = fName;
-    print(user["First Name"]);
-    if (sName.isNotEmpty) user["Second Name"] = sName;
-    user["Pr"] = pr.replaceAll(".", "");
+    if (dpName.isNotEmpty) userData..dPName = dpName;
+    if (fName.isNotEmpty) userData..firstName = fName;
+    print(userData.firstName);
+    if (sName.isNotEmpty) userData..secondName = sName;
+    userData..prifix = pr.replaceAll(".", "");
 
     DataCRUD.storeData();
 
@@ -104,11 +151,11 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   void initState() {
-    Map<String, String> mobile = user["Mobile"];
+    Map<String, String> mobile = userData.Mobile;
 
     mobileNoEditingMap = mobile;
 
-    Map<String, String> email = user["Email"];
+    Map<String, String> email = userData.Email;
 
     emailEditingMap = email;
 
@@ -170,7 +217,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 CustonTextFields(
                                   lable: "Prefix",
                                   hintText: "Enter your Prefix",
-                                  initStage: user["Pr"],
+                                  initStage: userData.prifix,
                                   onChanged: (value) {
                                     pr = value;
                                   },
@@ -179,7 +226,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 CustonTextFields(
                                   lable: "Display Name",
                                   hintText: "Enter your Display Name",
-                                  initStage: user["DPName"],
+                                  initStage: userData.dPName,
                                   onChanged: (value) {
                                     dpName = value;
                                   },
@@ -188,7 +235,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 CustonTextFields(
                                   lable: "First Name",
                                   hintText: "Enter your First Name",
-                                  initStage: user["First Name"],
+                                  initStage: userData.firstName,
                                   onChanged: (value) {
                                     fName = value;
                                   },
@@ -197,7 +244,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 CustonTextFields(
                                   lable: "Second Name",
                                   hintText: "Enter your Second Name",
-                                  initStage: user["Second Name"],
+                                  initStage: userData.secondName,
                                   onChanged: (value) {
                                     sName = value;
                                   },
@@ -256,6 +303,140 @@ class _SettingsPageState extends State<SettingsPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class CustomPopUpBox extends StatefulWidget {
+  final String title;
+  final String firstFirldLable;
+  final String firstFieldHint;
+  final String secondFieldLable;
+  final String secondFirldHint;
+  final TextInputType secondFieldType;
+
+  final Field field;
+  // todo: add field to get weather this one is mobile or not
+
+  const CustomPopUpBox(
+      {Key? key,
+      required this.title,
+      required this.firstFirldLable,
+      required this.firstFieldHint,
+      required this.secondFieldLable,
+      required this.secondFirldHint,
+      required this.secondFieldType,
+      required this.field})
+      : super(key: key);
+
+  @override
+  _CustomPopUpBoxState createState() => _CustomPopUpBoxState();
+}
+
+class _CustomPopUpBoxState extends State<CustomPopUpBox> {
+  String firstFieldVal = "";
+  String secondFieldVal = "";
+  String errorText = "";
+
+  //   // todo: this one shoulbe for mobile only
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text(
+            "${widget.title}",
+            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: CustonTextFields(
+              lable: '${widget.firstFirldLable}',
+              hintText: '${widget.firstFieldHint}',
+              inputType: TextInputType.text,
+              errorText: errorText.isEmpty ? null : errorText,
+              onChanged: (val) {
+                firstFieldVal = val;
+              },
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: CustonTextFields(
+              lable: '${widget.secondFieldLable}',
+              hintText: '${widget.secondFirldHint}',
+              inputType: widget.secondFieldType,
+              onChanged: (val) {
+                secondFieldVal = val;
+              },
+            ),
+          ),
+          Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomButton(
+                    onTap: () {
+                      switch (widget.field) {
+                        case Field.Mobile:
+                          {
+                            errorText = userData.checkMobile(firstFieldVal);
+                            if (errorText.isEmpty) {
+                              userData.addMobile(firstFieldVal, secondFieldVal);
+
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  SettingsPage.id,
+                                  ModalRoute.withName(HomePage.id));
+                            }
+
+                            break;
+                          }
+                        case Field.Email:
+                          {
+                            errorText = userData.checkEmail(firstFieldVal);
+                            if (errorText.isEmpty) {
+                              userData.addEmail(firstFieldVal, secondFieldVal);
+
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  SettingsPage.id,
+                                  ModalRoute.withName(HomePage.id));
+                            }
+
+                            break;
+                          }
+                      }
+
+                      setState(() {});
+                      print("Error is :$errorText");
+                    },
+                    text: "Add",
+                    width: 70,
+                    height: 35,
+                    fontSize: 15,
+                  ),
+                  CustomButton(
+                    backGroundColor: Colors.indigo,
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    text: "Cancel",
+                    width: 70,
+                    height: 35,
+                    fontSize: 15,
+                  )
+                ],
+              ))
+        ],
       ),
     );
   }

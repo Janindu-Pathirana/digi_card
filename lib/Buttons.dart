@@ -44,7 +44,7 @@ class CustomButton extends StatelessWidget {
   final String text;
   final Color backGroundColor;
   final Color textColor;
-  final double fotSize;
+  final double fontSize;
   final double width;
   final double height;
 
@@ -54,7 +54,7 @@ class CustomButton extends StatelessWidget {
     required this.text,
     this.backGroundColor = Colors.lightBlueAccent,
     this.textColor = Colors.white,
-    this.fotSize = 18,
+    this.fontSize = 18,
     this.height = 50,
     this.width = 150,
   }) : super(key: key);
@@ -73,10 +73,36 @@ class CustomButton extends StatelessWidget {
         child: Center(
           child: Text(
             "$text",
-            style: TextStyle(color: textColor, fontSize: fotSize),
+            style: TextStyle(color: textColor, fontSize: fontSize),
           ),
         ),
       ),
     );
+  }
+}
+
+class CustomAddButton extends StatelessWidget {
+  final Function onPress;
+
+  const CustomAddButton({Key? key, required this.onPress}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+        onPressed: () {
+          onPress();
+        },
+        child: Container(
+          width: 35,
+          height: 35,
+          decoration: BoxDecoration(
+              color: Colors.lightBlueAccent, shape: BoxShape.circle),
+          child: Center(
+            child: Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
+          ),
+        ));
   }
 }

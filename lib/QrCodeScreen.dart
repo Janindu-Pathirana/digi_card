@@ -12,10 +12,12 @@ class QrCodeScreen extends StatefulWidget {
 
 class _QrCodeScreenState extends State<QrCodeScreen> {
   String getVCF() {
+    // String VCF =
+    //     """BEGIN:VCARD\nVERSION:4.0 \nN:${user["First Name"]};${user["Second Name"]};;${user["Pr"]}.;\nFN:${user["First Name"]} ${user["Second Name"]}""";
     String VCF =
-        """BEGIN:VCARD\nVERSION:4.0 \nN:${user["First Name"]};${user["Second Name"]};;${user["Pr"]}.;\nFN:${user["First Name"]} ${user["Second Name"]}""";
+        """BEGIN:VCARD\nVERSION:4.0 \nN:${userData.firstName};${userData.secondName};;${userData.prifix}.;\nFN:${userData.firstName} ${userData.secondName}""";
 
-    Map<String, String> mobile = user["Mobile"];
+    Map<String, String> mobile = userData.Mobile;
     String phoneNo = "";
     for (int i = 0; i < mobile.length; i++) {
       String val = mobile.values.elementAt(i);
@@ -23,7 +25,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
     }
     VCF += phoneNo;
 
-    Map<String, String> email = user["Email"];
+    Map<String, String> email = userData.Email;
     String emailID = "";
     for (int i = 0; i < email.length; i++) {
       String val = email.values.elementAt(i);

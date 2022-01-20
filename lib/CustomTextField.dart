@@ -6,6 +6,7 @@ class CustonTextFields extends StatefulWidget {
   final String hintText;
   TextInputType? inputType = TextInputType.name;
   final Function? onChanged;
+  final String? errorText;
 
   CustonTextFields(
       {Key? key,
@@ -13,7 +14,8 @@ class CustonTextFields extends StatefulWidget {
       required this.lable,
       required this.hintText,
       inputType,
-      this.onChanged})
+      this.onChanged,
+      this.errorText})
       : super(key: key);
 
   @override
@@ -50,6 +52,7 @@ class _CustonTextFieldsState extends State<CustonTextFields> {
           },
           keyboardType: TextInputType.name,
           decoration: InputDecoration(
+            errorText: widget.errorText,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),

@@ -23,10 +23,14 @@ class DataCRUD {
   }
 
   static Future<void> _createMap() async {
-    user["DPName"] = _data["DPName"];
-    user["First Name"] = _data["First Name"];
-    user["Second Name"] = _data["Second Name"];
-    user["Pr"] = _data["Pr"];
+    userData.dPName = _data["DPName"];
+    userData.firstName = _data["First Name"];
+    userData.secondName = _data["Second Name"];
+    userData.prifix = _data["Pr"];
+    // user["DPName"] = _data["DPName"];
+    // user["First Name"] = _data["First Name"];
+    // user["Second Name"] = _data["Second Name"];
+    // user["Pr"] = _data["Pr"];
 
     List mobile = _data["Mobile"];
     List email = _data["Email"];
@@ -41,22 +45,27 @@ class DataCRUD {
     email.forEach((element) {
       emailMap[element[0]] = element[1];
     });
-
-    user["Mobile"] = mobileMap;
-    user["Email"] = emailMap;
+    userData.Mobile = mobileMap;
+    userData..Email = emailMap;
+    // user["Mobile"] = mobileMap;
+    // user["Email"] = emailMap;
   }
 
   static storeData() {
     String data = "{";
 
-    data += """ "Pr":"${user["Pr"]}", "DPName": "${user["DPName"]}",
-  "First Name": "${user["First Name"]}",
-  "Second Name": "${user["Second Name"]}",""";
+    //   data += """ "Pr":"${user["Pr"]}", "DPName": "${user["DPName"]}",
+    // "First Name": "${user["First Name"]}",
+    // "Second Name": "${user["Second Name"]}",""";
+
+    data += """ "Pr":"${userData.prifix}", "DPName": "${userData.dPName}",
+  "First Name": "${userData.firstName}",
+  "Second Name": "${userData.secondName}",""";
 
     data += """ "Mobile": [ """;
 
-    Map<String, String> mobileMap = user["Mobile"];
-
+    // Map<String, String> mobileMap = user["Mobile"];
+    Map<String, String> mobileMap = userData.Mobile;
     mobileMap.forEach((key, value) {
       data += """["$key", "$value"]""";
       if (mobileMap.keys.last != key) {
@@ -68,7 +77,8 @@ class DataCRUD {
 
     data += """ "Email": [ """;
 
-    Map<String, String> emailMap = user["Email"];
+    // Map<String, String> emailMap = user["Email"];
+    Map<String, String> emailMap = userData.Email;
 
     emailMap.forEach((key, value) {
       data += """["$key", "$value"]""";

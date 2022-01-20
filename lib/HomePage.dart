@@ -18,13 +18,16 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<List<String>> getDataList(String data) {
-    Map<String, String> mobile = user[data];
+    // Map<String, String> dataMap = user[data];
+
+    Map<String, String> dataMap =
+        data == "Mobile" ? userData.Mobile : userData.Email;
 
     List<List<String>> list = [];
 
-    for (int i = 0; i < mobile.length; i++) {
-      String k = mobile.keys.elementAt(i);
-      String val = mobile.values.elementAt(i);
+    for (int i = 0; i < dataMap.length; i++) {
+      String k = dataMap.keys.elementAt(i);
+      String val = dataMap.values.elementAt(i);
 
       list.add([k, val]);
     }
@@ -83,9 +86,9 @@ class _HomePageState extends State<HomePage> {
                     Container(
                       padding: EdgeInsets.symmetric(vertical: 10),
                       child: Text(
-                        user["Pr"] == ""
-                            ? "${user["DPName"]}"
-                            : "${user["Pr"]}.${user["DPName"]}",
+                        userData.prifix == ""
+                            ? "${userData.prifix}"
+                            : "${userData.prifix}.${userData.dPName}",
                         style: TextStyle(fontSize: 20, color: Colors.black),
                       ),
                     ),
@@ -135,8 +138,8 @@ class _HomePageState extends State<HomePage> {
                       DataContainer(
                         title: "Name",
                         dataList: [
-                          ["First Name", "${user["First Name"]}"],
-                          ["Second Name", "${user["Second Name"]}"],
+                          ["First Name", "${userData.firstName}"],
+                          ["Second Name", "${userData.secondName}"],
                         ],
                       ),
                       DataContainer(

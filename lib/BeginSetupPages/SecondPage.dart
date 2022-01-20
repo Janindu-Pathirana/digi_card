@@ -31,10 +31,16 @@ class _SecondPageState extends State<SecondPage> {
         error = "";
       });
 
-      user["First Name"] = fName;
-      user["Second Name"] = sName;
-      user["Pr"] = pr;
-      user["DPName"] = "$fName $sName";
+      userData.firstName = fName;
+      userData.secondName = sName;
+      userData.prifix = pr;
+      userData.dPName = "$fName $sName";
+
+      //
+      // user["First Name"] = fName;
+      // user["Second Name"] = sName;
+      // user["Pr"] = pr;
+      // user["DPName"] = "$fName $sName";
 
       DataCRUD.storeData();
 
