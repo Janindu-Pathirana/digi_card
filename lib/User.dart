@@ -68,4 +68,12 @@ class User {
   void addEmail(String firstFieldVal, String secondFieldVal) {
     Email[firstFieldVal] = secondFieldVal;
   }
+
+  void removeMobile(String id) {
+    Mobile.remove(id);
+  }
+
+  void removeEmail(String id) {
+    Email.remove(id);
+  }
 }

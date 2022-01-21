@@ -42,6 +42,12 @@ class _SettingsPageState extends State<SettingsPage> {
       email.forEach((key, value) {
         list.add(
           CustonTextFields(
+            id: key,
+            suffixAction: (String id) {
+              userData.removeEmail(id);
+              setState(() {});
+            },
+            sufIcon: Icons.remove,
             inputType: TextInputType.emailAddress,
             lable: "$key",
             hintText: "Enter $key Email",
@@ -62,10 +68,6 @@ class _SettingsPageState extends State<SettingsPage> {
         showDialog(
           context: context,
           builder: (BuildContext context) {
-            String secondFieldVal = "";
-            String firstFieldVal = "";
-            String errorText = "";
-
             return CustomPopUpBox(
               field: Field.Email,
               title: "Email Address",
@@ -98,7 +100,12 @@ class _SettingsPageState extends State<SettingsPage> {
       mobile.forEach((key, value) {
         list.add(
           CustonTextFields(
-            icon: Icon(Icons.phone),
+            id: key,
+            suffixAction: (String id) {
+              userData.removeMobile(id);
+              setState(() {});
+            },
+            sufIcon: Icons.remove,
             inputType: TextInputType.number,
             lable: "$key",
             hintText: "Enter $key No",

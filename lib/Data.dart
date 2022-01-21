@@ -17,12 +17,3 @@ List<BoxShadow> shadow = [
 ];
 
 User userData = User();
-//
-// Map<String, dynamic> user = {
-//   "Pr": "Mr",
-//   "DPName": "-",
-//   "First Name": "-",
-//   "Second Name": "-",
-//   "Mobile": {"Home": "-", "Mobile": "-"},
-//   "Email": {"Home": "-", "Other": "-"},
-// };

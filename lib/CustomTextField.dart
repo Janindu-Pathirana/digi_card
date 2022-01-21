@@ -7,7 +7,9 @@ class CustonTextFields extends StatefulWidget {
   TextInputType? inputType = TextInputType.name;
   final Function? onChanged;
   final String? errorText;
-  final Icon? icon;
+  final Function? suffixAction;
+  final String? id;
+  IconData sufIcon;
 
   CustonTextFields(
       {Key? key,
@@ -17,7 +19,9 @@ class CustonTextFields extends StatefulWidget {
       inputType,
       this.onChanged,
       this.errorText,
-      this.icon})
+      this.id,
+      this.sufIcon = Icons.add,
+      this.suffixAction})
       : super(key: key);
 
   @override
@@ -55,7 +59,18 @@ class _CustonTextFieldsState extends State<CustonTextFields> {
           keyboardType: TextInputType.name,
           decoration: InputDecoration(
             //todo: add clickable minus button
-            suffixIcon: widget.icon,
+
+            suffix: widget.suffixAction == null
+                ? null
+                : IconButton(
+                    onPressed: () {
+                      widget.suffixAction!(widget.id);
+                    },
+                    icon: Icon(
+                      widget.sufIcon,
+                    ),
+                  ),
+
             errorText: widget.errorText,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
